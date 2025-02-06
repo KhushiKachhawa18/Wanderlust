@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Carousel Popup with Arrows</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div id="blur" class="container">
+        <div class="content">
+            <h2>Slide 1: blah blah</h2>
+            <a href="#" onclick="toggle()">Read More</a>
+        </div>
+    </div>
+
+    <div id="popup">
+        <div class="carousel-container">
+            <div class="carousel">
+                <div class="carousel-slide">Slide 1: Welcome to the carousel!</div>
+                <div class="carousel-slide">Slide 2: Here's some more info!</div>
+                <div class="carousel-slide">Slide 3: Enjoy your day!</div>
+            </div>
+
+            <!-- Back and Forth arrows -->
+            <button class="prev" onclick="changeSlide(-1)">&#10094;</button>
+            <button class="next" onclick="changeSlide(1)">&#10095;</button>
+        </div>
+        <a href="#" onclick="toggle()">Close</a>
+    </div>
+
+    <script type="text/javascript">
+        let currentSlide = 0;
+
+        // Toggle the popup and carousel
+        function toggle() {
+            var blur = document.getElementById('blur');
+            var popup = document.getElementById('popup');
+            blur.classList.toggle('active');
+            popup.classList.toggle('active');
+            showSlide(currentSlide);
+        }
+
+        // Function to show a specific slide
+        function showSlide(index) {
+            const slides = document.querySelectorAll('.carousel-slide');
+            if (index >= slides.length) currentSlide = 0;
+            if (index < 0) currentSlide = slides.length - 1;
+
+            slides.forEach((slide, i) => {
+                slide.style.transform = `translateX(${(i - currentSlide) * 100}%)`;
+            });
+        }
+
+        // Change slide (back/forth)
+        function changeSlide(n) {
+            currentSlide += n;
+            showSlide(currentSlide);
+        }
+    </script>
+</body>
+</html>
